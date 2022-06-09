@@ -74,4 +74,15 @@ public class SaveManager : MonoBehaviour
 
         }
     }
+
+    public void ResetHighscoreData()
+    {
+        SaveData data = new SaveData();
+        data.highScore = 0;
+        data.highScoreName = "";
+
+        string json = JsonUtility.ToJson(data);
+
+        File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
+    }
 }
