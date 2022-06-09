@@ -29,7 +29,7 @@ public class SaveManager : MonoBehaviour
 
     private void Start()
     {
-        currentHighscore.text = playerName + " - " + playerHighscore;
+        SetCurrentHighscoreText();
     }
 
     public void StartGame()
@@ -75,6 +75,18 @@ public class SaveManager : MonoBehaviour
         }
     }
 
+    public void SetCurrentHighscoreText()
+    {
+        LoadHighscore();
+        if (playerHighscore == 0)
+        {
+            currentHighscore.text = "---";
+            return;
+        }
+
+        currentHighscore.text = playerName + " - " + playerHighscore;
+    }
+
     public void ResetHighscoreData()
     {
         SaveData data = new SaveData();
@@ -84,5 +96,6 @@ public class SaveManager : MonoBehaviour
         string json = JsonUtility.ToJson(data);
 
         File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
+        SetCurrentHighscoreText();
     }
 }
